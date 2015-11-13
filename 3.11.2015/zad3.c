@@ -1,56 +1,82 @@
 #include<stdio.h>
 
-char evtab[100], exptab[1000];
+char temptab[100], expression_tab[1000];
 
-int str_to_integer(char* tab, int n){
-
-
+struct exp{
+  char type;
+  unsigned long long int value;
 }
 
-int is_in_range(char* tab, int n, int index, char min, char max){
-  while(1){
-    if(tab[index] == ' '){
-      continue;
+exp tab[100];
+int exp_count = 0;
+
+unsigned long long int parse_int(int s, int e){
+  unsigned long long int result = 0;
+  for(int i = s;i < e;i++){
+    if('0' <= t[i] && t[i] <= '9'){
+      result *= 10;
+      result += t[i]-'0';
     }
-    if(tab[index] >= min && tab[index] <= max){
-      return index;
-    }
-    else{
-      return 0;
-    }
-    index++;
-    if(index >= n){
-      return -1;
+    if(t[i] = ':'){
+      result *= 60;
     }
   }
+  return result;
 }
 
-void cpy_exp_to_evtab(char* exp, int n){
-  int x = 0;
-  for(int i = 0;i < n;i++){
-    if(int a = is_in_range(exp, n, '*', '/')){
-      if(x == 1){
-        memcpy() 
+void parse(char* t, int l){
+  int start, i;
+  for(i = 0;i < l;i++){
+    if(t[i] != ' '){
+      break;
+    }
+  }
+  start = i;
+  for(;i < l;i++){
+    if(tab[i] == ' '){
+      if(exp_count % 2 == 0){
+	tab[exp_count].value = parse_int(start, i);
+	tab[exp_count].type = 'v';
       }
-      x = 1;
+      else{
+	tab[exp_count].type = tab[i-1];
+      }
+      exp_count++;
+      while(tab[i] == 0){
+	i++;
+      }
+      start = i;
     }
   }
-}
-
-int evalueate(char* tab, int n){
 
 }
 
-int evalueate(char* tab, int n, arg1){
-
-}
-int parse(char* tab, int n){
-  if(int a = is_in_range(tab, n, 0, '0', '9')){
+unsigned long long int evalueate(){
+  unsigned long long int value = tab[0].value;
+  for(int i = 1;i < exp_count;i += 2;){
+    switch (tab[i].type){
+      case '+':
+	value += tab[i+1].value;
+	break;
+      case '*':
+	value *= tab[i+1].value;
+	break;
+      case '-':
+	value -= tab[i+1].value;
+	break;
+      case '/':
+	value /= tab[i+1].value;
+	break;
+      default:
+	printf("error");
+    }
   }
+  return value;
 }
+
 
 
 
 int main(){
-
+  
 }
